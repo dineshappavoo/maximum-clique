@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class Graph<T extends Comparable<T>>{
 
 	
-	public static ArrayList<Edge>[] adjacencyList=null;
+	public static ArrayList<Integer>[] adjacencyList=null;
 	public int noOfVertices;
 	
 	
 	public Graph(int noOfVertices)
 	{
-		adjacencyList=(ArrayList<Edge>[])new ArrayList[noOfVertices+1];
+		adjacencyList=(ArrayList<Integer>[])new ArrayList[noOfVertices+1];
 		this.noOfVertices=noOfVertices;
 	}
 
@@ -24,13 +24,13 @@ public class Graph<T extends Comparable<T>>{
 	 * @param u
 	 * @param v
 	 * @param w
-	 * To add edges to the adjacency list graph
+	 * To add edges to the adjacency list in graph
 	 */
-	public void addEdge(T u, T v, T w)
+	public void addEdge(T u, T v)
 	{
 		if(adjacencyList[(Integer) u]==null)
-			adjacencyList[(Integer) u]=new ArrayList<Edge>();
-		adjacencyList[(Integer) u].add(new Edge(u, v, w));
+			adjacencyList[(Integer) u]=new ArrayList<Integer>();
+		adjacencyList[(Integer) u].add((Integer) v);
 	}
 	
 	/**
@@ -42,11 +42,11 @@ public class Graph<T extends Comparable<T>>{
 	public void removeEdge(T u, T v)
 	{
 		int indexToBeRemoved=-1;
-		ArrayList<Edge> edgeList=adjacencyList[(Integer) u];
+		ArrayList<Integer> edgeList=adjacencyList[(Integer) u];
 		for(int i=0;i<adjacencyList[(Integer) u].size();i++)
 		{
-			Edge e=edgeList.get(i);
-			if(e.u.compareTo(u)==0&&e.v.compareTo(v)==0)
+			Integer val=edgeList.get(i);
+			if(val.compareTo((Integer) v)==0)
 			{
 				indexToBeRemoved=i;
 			}
@@ -60,41 +60,22 @@ public class Graph<T extends Comparable<T>>{
 	 * @return
 	 * To return the outgoing edges for the given source
 	 */
-	public ArrayList<Edge> getOutEdges(int u)
+	public ArrayList<Integer> getOutEdges(int u)
 	{
 		return adjacencyList[u];
 	}
-	
-	/**
-	 * 
-	 * @param u
-	 * @param v
-	 * @return
-	 * To get the weight given the u and v values
-	 * 
-	 */
-	public T getWeight(int u, int v)
-	{
-		ArrayList<Edge> edgeList=adjacencyList[u];
-		T weight = null;
-		for(Edge e : edgeList)
-		{
-			if(e.v.compareTo(v)==0)
-				weight=(T) e.w;
-		}
-		return weight;
-	}
+
 	
 	public void printGraph()
 	{
-		ArrayList<Edge> edgeList;
+		ArrayList<Integer> edgeList;
 		for(int i=1;i<=noOfVertices;i++)
 		{
 			edgeList=adjacencyList[i];
 			if(edgeList!=null)
 			{
-			for(Edge e : edgeList)
-				System.out.println("u : "+e.u+" v : "+e.v+" w : "+e.w);
+			for(Integer e : edgeList)
+				System.out.println("u : "+i+" v : "+e);
 			}
 		}
 	}
@@ -107,12 +88,12 @@ public class Graph<T extends Comparable<T>>{
 		// TODO Auto-generated method stub
 
 		Graph<Integer> graph=new Graph<Integer>(3);
-		graph.addEdge(1, 2, 5);
-		graph.addEdge(1, 3, 12);
-		graph.addEdge(3, 1, 12);
-		graph.addEdge(2, 1, 5);
-		graph.addEdge(2, 3, 7);
-		graph.addEdge(3, 2, 7);
+		graph.addEdge(1, 2);
+		graph.addEdge(1, 3);
+		graph.addEdge(3, 1);
+		graph.addEdge(2, 1);
+		graph.addEdge(2, 3);
+		graph.addEdge(3, 2);
 		graph.printGraph();
 		
 	}
