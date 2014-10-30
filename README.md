@@ -14,7 +14,7 @@ This library has the implementation of maximum clique algorithm based on Dimacs 
 
 
   
-##Project Contributor
+##Project Contributor(s)
 
 * Dinesh Appavoo ([@DineshAppavoo](https://twitter.com/DineshAppavoo))
 * Alex Mills
