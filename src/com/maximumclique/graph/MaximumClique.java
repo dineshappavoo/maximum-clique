@@ -18,7 +18,7 @@ public class MaximumClique {
 	 */
 
 	public static int noOfVertices=0,noOfEdges=0;
-	public static Graph<Integer> graph=null;
+	public static Graph graph=null;
 	public final static int INFINITY=Integer.MAX_VALUE;
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -43,7 +43,7 @@ public class MaximumClique {
 
 				//System.out.println("edge "+noOfEdges+" vertex "+noOfVertices);
 
-				graph=new Graph<Integer>(noOfVertices);
+				graph=new Graph(noOfVertices);
 				for(int i=0;i<noOfEdges;i++)
 				{
 					scanner.next();

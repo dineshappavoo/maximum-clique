@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Dinesh Appavoo
  *
  */
-public class Graph<T extends Comparable<T>>{
+public class Graph{
 
 	
 	public static ArrayList<Integer>[] adjacencyList=null;
@@ -26,11 +26,11 @@ public class Graph<T extends Comparable<T>>{
 	 * @param w
 	 * To add edges to the adjacency list in graph
 	 */
-	public void addEdge(T u, T v)
+	public void addEdge(int u, int v)
 	{
-		if(adjacencyList[(Integer) u]==null)
-			adjacencyList[(Integer) u]=new ArrayList<Integer>();
-		adjacencyList[(Integer) u].add((Integer) v);
+		if(adjacencyList[u]==null)
+			adjacencyList[u]=new ArrayList<Integer>();
+		adjacencyList[u].add(v);
 	}
 	
 	/**
@@ -39,14 +39,14 @@ public class Graph<T extends Comparable<T>>{
 	 * @param v
 	 * To remove the edge from the graph
 	 */
-	public void removeEdge(T u, T v)
+	public void removeEdge(int u, int v)
 	{
 		int indexToBeRemoved=-1;
-		ArrayList<Integer> edgeList=adjacencyList[(Integer) u];
-		for(int i=0;i<adjacencyList[(Integer) u].size();i++)
+		ArrayList<Integer> edgeList=adjacencyList[u];
+		for(int i=0;i<adjacencyList[u].size();i++)
 		{
-			Integer val=edgeList.get(i);
-			if(val.compareTo((Integer) v)==0)
+			int val=edgeList.get(i);
+			if(val==v)
 			{
 				indexToBeRemoved=i;
 			}
@@ -74,8 +74,8 @@ public class Graph<T extends Comparable<T>>{
 			edgeList=adjacencyList[i];
 			if(edgeList!=null)
 			{
-			for(Integer e : edgeList)
-				System.out.println("u : "+i+" v : "+e);
+			for(int v : edgeList)
+				System.out.println("u : "+i+" v : "+v);
 			}
 		}
 	}
@@ -87,7 +87,7 @@ public class Graph<T extends Comparable<T>>{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Graph<Integer> graph=new Graph<Integer>(3);
+		Graph graph=new Graph(3);
 		graph.addEdge(1, 2);
 		graph.addEdge(1, 3);
 		graph.addEdge(3, 1);
