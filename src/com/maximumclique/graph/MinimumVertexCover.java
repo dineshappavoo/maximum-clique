@@ -40,13 +40,13 @@ public class MinimumVertexCover {
 		int result=new MinimumVertexCover().findMaxMatching("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/input/C1000.9.clq.txt");
 
 
-		/*for(int i=1;i<=leftVertices;i++)
+		for(int i=1;i<=leftVertices;i++)
 		{
 			System.out.print("("+i+","+(Pair[i]-leftVertices)+")");
-		}*/
+		}
 		System.out.println("Total matching : "+result);
 
-		//biGraph.printGraph();
+		biGraph.printGraph();
 
 
 	}
@@ -65,7 +65,7 @@ public class MinimumVertexCover {
 	public void constructGraph(String fileName)
 	{
 
-		//File infile=new File(inFile);
+		File infile=new File(fileName);
 		int u,v;
 
 		Scanner scanner=new Scanner(System.in);
