@@ -2,6 +2,7 @@ package com.maximumclique.graph;
 
 import java.util.ArrayList;
 
+
 /**
  * @author Dinesh Appavoo
  *
@@ -17,6 +18,8 @@ public class Graph{
 	{
 		adjacencyList=(ArrayList<Integer>[])new ArrayList[noOfVertices+1];
 		this.noOfVertices=noOfVertices;
+		for(int i=0;i<(noOfVertices+1);i++)
+			adjacencyList[i]=new ArrayList<Integer>();
 	}
 
 	/**

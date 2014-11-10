@@ -31,13 +31,13 @@ public class MinimumVertexCover {
 	public static int[] Dist;
 	public final int NIL=0;
 	public final int INF=Integer.MAX_VALUE;
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 
 		//new BiPartiteMaxMatching().constructGraph("/users/dany/downloads/in.txt");
 		//biGraph.printGraph();
 		//int result=new BiPartiteMaxMatching().findMaxMatxhing("/users/dany/downloads/matching/test.txt");
-		int result=new MinimumVertexCover().findMaxMatching("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/input/C1000.9.clq.txt");
+		int result=new MinimumVertexCover().findMaxMatching("/Users/Dany/Downloads/implementation/bipartite_graph_matching/matching_input_1k.txt");
 
 
 		for(int i=1;i<=leftVertices;i++)
@@ -46,11 +46,11 @@ public class MinimumVertexCover {
 		}
 		System.out.println("Total matching : "+result);
 
-		biGraph.printGraph();
+		//biGraph.printGraph();
 
 
 	}
-	public int findMaxMatching(String fileName)
+	public int findMaxMatching(String fileName) throws FileNotFoundException
 	{
 		int maxMatching=0;
 		constructGraph(fileName);
@@ -62,23 +62,24 @@ public class MinimumVertexCover {
 		return maxMatching;
 	}
 
-	public void constructGraph(String fileName)
+	public void constructGraph(String fileName) throws FileNotFoundException
 	{
 
 		File infile=new File(fileName);
 		int u,v;
 
-		Scanner scanner=new Scanner(System.in);
+		Scanner scanner=new Scanner(infile);
 		leftVertices=scanner.nextInt();
 		rightVertices=scanner.nextInt();
 		//leftVertices+=1;
 		//rightVertices+=1;
 		noOfEdges=scanner.nextInt();
-		biGraph=new Graph(leftVertices+rightVertices);
+		biGraph=new Graph(leftVertices+rightVertices+1);
 		for(int i=0;i<noOfEdges;i++)
 		{
 			u=scanner.nextInt();
 			v=scanner.nextInt();
+			scanner.nextInt();
 			biGraph.addEdge(u,leftVertices+v);// To distinct the vertex ID's 'leftVertice+v'
 			biGraph.addEdge(leftVertices+v, u);
 		}
