@@ -27,12 +27,12 @@ public class BiPartiteMaxMatching {
 	public static int[] Dist;
 	public final int NIL=0;
 	public final int INF=Integer.MAX_VALUE;
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		
 		//new BiPartiteMaxMatching().constructGraph("/users/dany/downloads/in.txt");
 		//biGraph.printGraph();
-		int result=new BiPartiteMaxMatching().findMaxMatxhing("/users/dany/downloads/matching/test.txt");
+		int result=new BiPartiteMaxMatching().findMaxMatching("/Users/Dany/Downloads/implementation/bipartite_graph_matching/matching_input_1k.txt");
 		//int result=new BiPartiteMaxMatching().findMaxMatching();
 
 		
@@ -46,10 +46,10 @@ public class BiPartiteMaxMatching {
 		
 
 	}
-	public int findMaxMatching()
+	public int findMaxMatching(String fileName) throws FileNotFoundException
 	{
 		int maxMatching=0;
-		constructGraph();
+		constructGraph(fileName);
 		//biGraph.printGraph();
 		long inTime=System.currentTimeMillis();
 		maxMatching=doHopCraft_Karp();
@@ -58,13 +58,13 @@ public class BiPartiteMaxMatching {
 		return maxMatching;
 	}
 	
-	public void constructGraph()
+	public void constructGraph(String fileName) throws FileNotFoundException
 	{
 
-		//File infile=new File(inFile);
+		File infile=new File(fileName);
 		int u,v;
 
-			Scanner scanner=new Scanner(System.in);
+			Scanner scanner=new Scanner(infile);
 			leftVertices=scanner.nextInt();
 			rightVertices=scanner.nextInt();
 			//leftVertices+=1;
