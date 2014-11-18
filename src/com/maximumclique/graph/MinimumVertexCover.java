@@ -65,7 +65,43 @@ public class MinimumVertexCover {
 	public void constructGraph(String fileName) throws FileNotFoundException
 	{
 
-		File infile=new File(fileName);
+		File file = new File(fileName);
+		int u, v, w;
+		Scanner scanner=new Scanner(file);
+		while(scanner.hasNext())
+		{
+			String checker;
+			if((checker=scanner.next()).equals("p"))
+			{
+				scanner.next();
+				noOfVertices=scanner.nextInt();
+				noOfEdges=scanner.nextInt();
+
+				//System.out.println("edge "+noOfEdges+" vertex "+noOfVertices);
+
+				biGraph=new Graph(noOfVertices);
+				for(int i=0;i<noOfEdges;i++)
+				{
+					scanner.next();
+					u=scanner.nextInt();
+					v=scanner.nextInt();
+					biGraph.addEdge(u, v);
+					biGraph.addEdge(v, u);
+				}
+				break;
+			}
+		}
+		biGraph.printGraph();
+
+
+	
+		
+		
+		
+		
+		
+
+		/*File infile=new File(fileName);
 		int u,v;
 
 		Scanner scanner=new Scanner(infile);
@@ -82,7 +118,7 @@ public class MinimumVertexCover {
 			scanner.nextInt();
 			biGraph.addEdge(u,leftVertices+v);// To distinct the vertex ID's 'leftVertice+v'
 			biGraph.addEdge(leftVertices+v, u);
-		}
+		}*/
 
 	}
 
