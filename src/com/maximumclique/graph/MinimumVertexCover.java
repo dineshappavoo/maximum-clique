@@ -31,25 +31,35 @@ public class MinimumVertexCover {
 	public static int[] Dist;
 	public final int NIL=0;
 	public final int INF=Integer.MAX_VALUE;
+	
 	public static void main(String[] args) throws FileNotFoundException {
-		// TODO Auto-generated method stub
 
-		//new BiPartiteMaxMatching().constructGraph("/users/dany/downloads/in.txt");
-		//biGraph.printGraph();
 		//int result=new BiPartiteMaxMatching().findMaxMatxhing("/users/dany/downloads/matching/test.txt");
-		int result=new MinimumVertexCover().findMaxMatching("/Users/Dany/Downloads/implementation/bipartite_graph_matching/matching_input_1k.txt");
+		new MinimumVertexCover().findMinimumVertexCover();
+		//biGraph.printGraph();
+	}
 
-
+	/**
+	 * Method to find the minimum vertex cover from the maximum matching results
+	 * @throws FileNotFoundException
+	 */
+	public void findMinimumVertexCover() throws FileNotFoundException
+	{
+		int result=findMaxMatching("/Users/Dany/Downloads/implementation/bipartite_graph_matching/matching_input_5.txt");
 		for(int i=1;i<=leftVertices;i++)
 		{
-			System.out.print("("+i+","+(Pair[i]-leftVertices)+")");
+			if(Pair[i]!=0)
+				System.out.print("("+i+","+(Pair[i]-leftVertices)+")");
 		}
-		System.out.println("Total matching : "+result);
-
-		//biGraph.printGraph();
-
-
+		System.out.println("\nTotal matching : "+result);
 	}
+	
+	public boolean isFreeVertex(int vertex)
+	{
+		
+	}
+	
+	
 	public int findMaxMatching(String fileName) throws FileNotFoundException
 	{
 		int maxMatching=0;
@@ -65,7 +75,7 @@ public class MinimumVertexCover {
 	public void constructGraph(String fileName) throws FileNotFoundException
 	{
 
-		File file = new File(fileName);
+		/*File file = new File(fileName);
 		int u, v, w;
 		Scanner scanner=new Scanner(file);
 		while(scanner.hasNext())
@@ -91,17 +101,13 @@ public class MinimumVertexCover {
 				break;
 			}
 		}
-		biGraph.printGraph();
+		biGraph.printGraph();*/	
 
 
-	
-		
-		
-		
-		
-		
 
-		/*File infile=new File(fileName);
+
+
+		File infile=new File(fileName);
 		int u,v;
 
 		Scanner scanner=new Scanner(infile);
@@ -115,10 +121,10 @@ public class MinimumVertexCover {
 		{
 			u=scanner.nextInt();
 			v=scanner.nextInt();
-			scanner.nextInt();
+			//scanner.nextInt();
 			biGraph.addEdge(u,leftVertices+v);// To distinct the vertex ID's 'leftVertice+v'
 			biGraph.addEdge(leftVertices+v, u);
-		}*/
+		}
 
 	}
 
@@ -175,7 +181,6 @@ public class MinimumVertexCover {
 
 	public int doHopCraft_Karp()
 	{
-
 		Pair = new int[leftVertices+rightVertices+1];
 		Dist = new int[leftVertices+rightVertices+1];
 		int matching = 0;
@@ -185,7 +190,6 @@ public class MinimumVertexCover {
 					if (doDFS(v))
 						matching = matching + 1;
 		return matching;
-
 	}
 
 }
