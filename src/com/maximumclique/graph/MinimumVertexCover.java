@@ -5,9 +5,12 @@ package com.maximumclique.graph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
 
 
 /**
@@ -17,6 +20,14 @@ import java.util.Scanner;
  * 
  * By Konig's theorem, the minimum vertex cover in a bipartite graph is equivalent to the maximum matching problem of that graph.
  *
+ *
+ * ALGORITHM : 
+ *  - Find the maximum matching and (left, right) pairs
+ *  - Identify the free vertices both sides which are not participating in the matching
+ *  - Vertex cover vertices includes,
+ *     - Vertices which are participating in the matching and also connected to any of the 
+ *       free vertices(both sides)
+ *     - Vertices which are not connected to the free vertices (From any one side)  
  */
 public class MinimumVertexCover {
 
@@ -31,12 +42,69 @@ public class MinimumVertexCover {
 	public static int[] Dist;
 	public final int NIL=0;
 	public final int INF=Integer.MAX_VALUE;
-	
+
+	public static Set<Integer> leftVertexCoverVertices = new HashSet<Integer>();
+	public static Set<Integer> rightVertexCoverVertices = new HashSet<Integer>();
+
+	public static ArrayList<Integer> leftFreeVertices = new ArrayList<Integer>();
+	public static ArrayList<Integer> rightFreeVertices = new ArrayList<Integer>();	
+
 	public static void main(String[] args) throws FileNotFoundException {
 
 		//int result=new BiPartiteMaxMatching().findMaxMatxhing("/users/dany/downloads/matching/test.txt");
-		new MinimumVertexCover().findMinimumVertexCover();
+
+		MinimumVertexCover minVertCover = new MinimumVertexCover();
+		int result=minVertCover.findMaxMatching("/Users/Dany/Downloads/implementation/bipartite_graph_matching/matching_input_5.txt");
+		System.out.println("\nTotal matching : "+result);
+		minVertCover.identifyFreeVertices();
+		minVertCover.findMinimumVertexCover();
+
+		minVertCover.printDetailedGraphInformation();
 		//biGraph.printGraph();
+	}
+
+	public void printDetailedGraphInformation()
+	{
+		System.out.println("===============================");
+		System.out.println("     FREE VERTICES    ");
+		System.out.println("-------------------------------");
+
+		for(int i : leftFreeVertices)
+		{
+			System.out.println("Left Free  : "+i);
+		}
+
+		for(int i : rightFreeVertices)
+		{
+			System.out.println("Right Free : "+i);
+		}
+		System.out.println("-------------------------------");
+		System.out.println("   VERTEX COVER   ");
+		System.out.println("-------------------------------");
+		for(int i : leftVertexCoverVertices)
+		{
+			System.out.println("Left Vertex Cover  : "+i);
+		}
+
+		for(int i : rightVertexCoverVertices)
+		{
+			System.out.println("Right Vertex Cover : "+i);
+		}		
+		
+		System.out.print("Vertex Cover List : [ ");
+		for(int i : leftVertexCoverVertices)
+		{
+			System.out.print(i+" ");
+		}
+
+		for(int i : rightVertexCoverVertices)
+		{
+			System.out.print(i-leftVertices+" ");  //Final display
+		}
+		System.out.print("]");
+		System.out.println("\n===============================");
+
+		
 	}
 
 	/**
@@ -45,26 +113,63 @@ public class MinimumVertexCover {
 	 */
 	public void findMinimumVertexCover() throws FileNotFoundException
 	{
-		int result=findMaxMatching("/Users/Dany/Downloads/implementation/bipartite_graph_matching/matching_input_5.txt");
 		for(int i=1;i<=leftVertices;i++)
 		{
 			if(Pair[i]!=0)
-				System.out.print("("+i+","+(Pair[i]-leftVertices)+")");
+			{
+				ArrayList<Integer> adjacencyList = biGraph.getOutEdges(i);
+				for(int n : adjacencyList)
+				{
+					if(rightFreeVertices.contains(n))
+					{
+						leftVertexCoverVertices.add(i);
+					}
+					else // In both cases we are adding because any one side can be added to vertex cover list
+					{
+						leftVertexCoverVertices.add(i);
+					}
+				}
+				System.out.println("Left  : "+(i)+"  "+(Pair[i]-leftVertices));
+			}
 		}
-		System.out.println("\nTotal matching : "+result);
+		System.out.println();
+		for(int j=leftVertices+1;j<Pair.length;j++)
+		{
+			if(Pair[j]!=0)
+			{
+				ArrayList<Integer> adjacencyList = biGraph.getOutEdges(j);
+				for(int n : adjacencyList)
+				{
+					if(leftFreeVertices.contains(n))
+						rightVertexCoverVertices.add(j);
+				}
+				System.out.println("Right : "+(j-leftVertices)+"  "+Pair[j]);
+			}
+		}
 	}
-	
-	public boolean isFreeVertex(int vertex)
+
+
+	public void identifyFreeVertices()
 	{
-		
+		for(int i=1;i<=leftVertices;i++)
+		{
+			if(Pair[i]==0)
+			{
+				leftFreeVertices.add(i);
+			}
+		}
+		for(int j=leftVertices+1;j<Pair.length;j++)
+		{
+			if(Pair[j]==0)
+			{
+				rightFreeVertices.add(j);
+			}
+		}
 	}
-	
-	
 	public int findMaxMatching(String fileName) throws FileNotFoundException
 	{
 		int maxMatching=0;
 		constructGraph(fileName);
-		//biGraph.printGraph();
 		long inTime=System.currentTimeMillis();
 		maxMatching=doHopCraft_Karp();
 		long pTime=System.currentTimeMillis();
@@ -102,9 +207,6 @@ public class MinimumVertexCover {
 			}
 		}
 		biGraph.printGraph();*/	
-
-
-
 
 
 		File infile=new File(fileName);
