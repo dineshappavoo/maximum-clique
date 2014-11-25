@@ -51,8 +51,6 @@ public class MinimumVertexCover {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		//int result=new BiPartiteMaxMatching().findMaxMatxhing("/users/dany/downloads/matching/test.txt");
-
 		MinimumVertexCover minVertCover = new MinimumVertexCover();
 		int result=minVertCover.findMaxMatching("/Users/Dany/Downloads/implementation/bipartite_graph_matching/matching_input_5.txt");
 		System.out.println("\nTotal matching : "+result);
@@ -149,6 +147,9 @@ public class MinimumVertexCover {
 	}
 
 
+	/**
+	 * Method to find the free vertices after the bipartite matching
+	 */
 	public void identifyFreeVertices()
 	{
 		for(int i=1;i<=leftVertices;i++)
@@ -166,6 +167,13 @@ public class MinimumVertexCover {
 			}
 		}
 	}
+	
+	/**
+	 * Method to find the maximum matching in the bipartite graph
+	 * @param fileName
+	 * @return
+	 * @throws FileNotFoundException
+	 */
 	public int findMaxMatching(String fileName) throws FileNotFoundException
 	{
 		int maxMatching=0;
@@ -177,6 +185,11 @@ public class MinimumVertexCover {
 		return maxMatching;
 	}
 
+	/**
+	 * Method the construct the graph from the input file
+	 * @param fileName
+	 * @throws FileNotFoundException
+	 */
 	public void constructGraph(String fileName) throws FileNotFoundException
 	{
 
