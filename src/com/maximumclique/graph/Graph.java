@@ -68,6 +68,14 @@ public class Graph{
 		return adjacencyList[u];
 	}
 
+	/**
+	 * Method to return the adjacency list
+	 * @return
+	 */
+	public ArrayList<Integer>[] getAdjacencyList()
+	{
+		return adjacencyList;
+	}
 	
 	public void printGraph()
 	{
