@@ -52,7 +52,7 @@ public class MinimumVertexCover {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		MinimumVertexCover minVertCover = new MinimumVertexCover();
-		int result=minVertCover.findMaxMatching("/Users/Dany/Downloads/implementation/bipartite_graph_matching/matching_input_5.txt");
+		int result=minVertCover.findMaxMatching("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/matching_input_5.txt");
 		System.out.println("\nTotal matching : "+result);
 		minVertCover.identifyFreeVertices();
 		minVertCover.findMinimumVertexCover();

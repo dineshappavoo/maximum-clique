@@ -5,6 +5,7 @@ package com.maximumclique.graph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -24,7 +25,7 @@ public class MaximumClique {
 	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 
-		new MaximumClique().constructGraph("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/input/C1000.9.clq.txt");
+		new MaximumClique().constructGraph("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/C1000.9.clq.txt");
 	}
 
 	public void constructGraph(String filename) throws FileNotFoundException
@@ -58,6 +59,12 @@ public class MaximumClique {
 		graph.printGraph();
 
 
+	}
+	
+	
+	public ArrayList<Integer> findMaximalClique(Graph, int pivotNode)
+	{
+		
 	}
 
 }
