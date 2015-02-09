@@ -6,9 +6,11 @@ package com.maximumclique.graph;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -240,7 +242,31 @@ public class MinimumVertexCover {
 			biGraph.addEdge(u,leftVertices+v);// To distinct the vertex ID's 'leftVertice+v'
 			biGraph.addEdge(leftVertices+v, u);
 		}
-
+		
+		//Shuffle the adjacency list
+		ArrayList<Integer>[] adjList = biGraph.getAdjacencyList();
+		
+		//Shuffle the vertices
+		GraphDNA.shuffle(adjList);
+		
+		//Shuffle each adjacency list
+		for(ArrayList<Integer> list : adjList)
+		{
+			Collections.shuffle(list);
+		}
+	}
+	
+			
+	public static ArrayList<Integer>[] RandomizeArray(ArrayList<Integer>[] adjList){
+		Random rgen = new Random();  // Random number generator 
+		for (int i=0; i<adjList.length; i++) {
+		    int randomPosition = rgen.nextInt(adjList.length);
+		    ArrayList<Integer> temp = adjList[i];
+		    adjList[i] = adjList[randomPosition];
+		    adjList[randomPosition] = temp;
+		}
+ 
+		return adjList;
 	}
 
 	public boolean doBFS()
