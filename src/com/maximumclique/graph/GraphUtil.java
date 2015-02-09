@@ -6,9 +6,7 @@ package com.maximumclique.graph;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
-import java.util.Set;
 
 /**
  * @author Dany
@@ -20,6 +18,8 @@ public class GraphUtil {
 
 	/**
 	 * Method to find the maximal clique from the graph
+	 * This method uses BFS to iterate through the nodes and get the maximal vertices set
+	 * 
 	 * @param startNode
 	 * @param graph
 	 * @return potentialClique
@@ -35,6 +35,7 @@ public class GraphUtil {
 
 		int graphSize = graph.size();
 		visited = new boolean[graphSize];
+		visited[startNode] = true;
 
 		while(!queue.isEmpty())
 		{
@@ -48,6 +49,7 @@ public class GraphUtil {
 					{
 						maximalClique.add(v);
 						queue.add(v);
+						visited[v] = true;
 					}
 				}
 			}
@@ -56,6 +58,14 @@ public class GraphUtil {
 		return maximalClique;
 	}
 
+	/**
+	 * Method to verify whether one vertex is neighbor of  vertices in the current maximal set
+	 * 
+	 * @param currentMaximal
+	 * @param node
+	 * @param graph
+	 * @return
+	 */
 	public boolean isAdjacentToCurrentMaximal(HashSet<Integer> currentMaximal, int node, Graph graph)
 	{
 		for(int u : currentMaximal)
