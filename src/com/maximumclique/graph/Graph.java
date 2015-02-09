@@ -58,6 +58,20 @@ public class Graph{
 	}
 	
 	/**
+	 * Method to verify whether u and v are neighbors
+	 * @param u
+	 * @param v
+	 * @return
+	 */
+	public boolean isNeighbor(int u, int v)
+	{
+		if(adjacencyList[u]==null)
+			return false;
+		return adjacencyList[u].contains(v);
+					
+	}
+	
+	/**
 	 * 
 	 * @param u
 	 * @return
