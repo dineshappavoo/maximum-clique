@@ -57,6 +57,44 @@ public class GraphUtil {
 		
 		return maximalClique;
 	}
+	
+	public HashSet<Integer> growMaximalClique(HashSet<Integer> currentMaximalClique, Graph graph)
+	{
+
+		Queue<Integer> queue = new LinkedList<Integer>();
+
+		int graphSize = graph.size();
+		visited = new boolean[graphSize];
+		
+		for(int node : currentMaximalClique)
+		{
+			queue.add(node);
+			visited[node] = true;
+			
+		}
+
+		while(!queue.isEmpty())
+		{
+			int u = queue.poll();
+			ArrayList<Integer> adjList = graph.getOutEdges(u);
+			for(int v : adjList)
+			{
+				if(visited[v]==false)
+				{
+					if(isAdjacentToCurrentMaximal(currentMaximalClique, v, graph))
+					{
+						currentMaximalClique.add(v);
+						queue.add(v);
+						visited[v] = true;
+					}
+				}
+			}
+		}
+		
+		return currentMaximalClique;
+	
+		
+	}
 
 	/**
 	 * Method to verify whether one vertex is neighbor of  vertices in the current maximal set
