@@ -5,6 +5,7 @@ package com.maximumclique.graph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -59,7 +60,15 @@ public class GraphConstruction {
 		Graph graph = GraphConstruction.constructGraph("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/C125.9.clq.txt");
 		graph.printGraph();
 		
+		HashSet<Integer> maximalClique = GraphUtil.findOneMaximalClique(118, graph);
 		
+		System.out.print("[");
+		for(int node : maximalClique)
+		{
+			System.out.print(node+" ");
+		}
+		System.out.println("]");
+
 		
 	}
 

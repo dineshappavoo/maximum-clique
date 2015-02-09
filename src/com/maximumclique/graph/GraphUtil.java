@@ -14,7 +14,7 @@ import java.util.Queue;
  */
 public class GraphUtil {
 
-	public boolean[] visited;
+	public static boolean[] visited;
 
 	/**
 	 * Method to find the maximal clique from the graph
@@ -24,7 +24,7 @@ public class GraphUtil {
 	 * @param graph
 	 * @return potentialClique
 	 */
-	public HashSet<Integer> findOneMaximalClique(int startNode, Graph graph	)
+	public static HashSet<Integer> findOneMaximalClique(int startNode, Graph graph	)
 	{
 
 		HashSet<Integer> maximalClique = new HashSet<Integer>();
@@ -34,7 +34,7 @@ public class GraphUtil {
 		maximalClique.add(startNode);
 
 		int graphSize = graph.size();
-		visited = new boolean[graphSize];
+		visited = new boolean[graphSize+1];
 		visited[startNode] = true;
 
 		while(!queue.isEmpty())
@@ -58,13 +58,19 @@ public class GraphUtil {
 		return maximalClique;
 	}
 	
-	public HashSet<Integer> growMaximalClique(HashSet<Integer> currentMaximalClique, Graph graph)
+	/**
+	 * Method to grow current maximal clique further if possible
+	 * @param currentMaximalClique
+	 * @param graph
+	 * @return
+	 */
+	public static HashSet<Integer> growMaximalClique(HashSet<Integer> currentMaximalClique, Graph graph)
 	{
 
 		Queue<Integer> queue = new LinkedList<Integer>();
 
 		int graphSize = graph.size();
-		visited = new boolean[graphSize];
+		visited = new boolean[graphSize+1];
 		
 		for(int node : currentMaximalClique)
 		{
@@ -104,7 +110,7 @@ public class GraphUtil {
 	 * @param graph
 	 * @return
 	 */
-	public boolean isAdjacentToCurrentMaximal(HashSet<Integer> currentMaximal, int node, Graph graph)
+	public static boolean isAdjacentToCurrentMaximal(HashSet<Integer> currentMaximal, int node, Graph graph)
 	{
 		for(int u : currentMaximal)
 		{
