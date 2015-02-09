@@ -72,6 +72,14 @@ public class Graph{
 	}
 	
 	/**
+	 * Method to return the size of the graph
+	 * @return
+	 */
+	public int size()
+	{
+		return noOfVertices;
+	}
+	/**
 	 * 
 	 * @param u
 	 * @return
