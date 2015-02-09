@@ -54,7 +54,10 @@ public class MinimumVertexCover {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		MinimumVertexCover minVertCover = new MinimumVertexCover();
-		int result=minVertCover.findMaxMatching("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/matching_input_5.txt");
+		//int result=minVertCover.findMaxMatching("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/matching_input_5.txt");
+		minVertCover.constructGraph("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/matching_input_5.txt");
+		int result=minVertCover.findMaxMatching(biGraph);
+
 		System.out.println("\nTotal matching : "+result);
 		minVertCover.identifyFreeVertices();
 		minVertCover.findMinimumVertexCover();
@@ -169,17 +172,17 @@ public class MinimumVertexCover {
 			}
 		}
 	}
-	
+
 	/**
 	 * Method to find the maximum matching in the bipartite graph
 	 * @param fileName
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public int findMaxMatching(String fileName) throws FileNotFoundException
+	public int findMaxMatching(Graph graph) throws FileNotFoundException
 	{
 		int maxMatching=0;
-		constructGraph(fileName);
+		//constructGraph(fileName);
 		long inTime=System.currentTimeMillis();
 		maxMatching=doHopCraft_Karp();
 		long pTime=System.currentTimeMillis();

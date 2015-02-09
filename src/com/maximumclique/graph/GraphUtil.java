@@ -4,6 +4,7 @@
 package com.maximumclique.graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -34,7 +35,7 @@ public class GraphUtil {
 		maximalClique.add(startNode);
 
 		int graphSize = graph.size();
-		visited = new boolean[graphSize+1];
+		visited = new boolean[graphSize];
 		visited[startNode] = true;
 
 		while(!queue.isEmpty())
@@ -70,7 +71,7 @@ public class GraphUtil {
 		Queue<Integer> queue = new LinkedList<Integer>();
 
 		int graphSize = graph.size();
-		visited = new boolean[graphSize+1];
+		visited = new boolean[graphSize];
 		
 		for(int node : currentMaximalClique)
 		{
@@ -120,6 +121,32 @@ public class GraphUtil {
 			}
 		}
 		return true;			
+	}
+	
+	/**
+	 * 
+	 * @param maximalCliqueK1
+	 * @param maximalCliqueK2
+	 */
+	public Graph findBipartiteComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph graph)
+	{
+		int size = graph.size()-1;
+		Graph biGraph = new Graph(size*2);
+		
+		int leftVertices = size;
+		
+		for(int u : maximalCliqueK1)
+		{
+			for(int v : maximalCliqueK2)
+			{
+				if(!graph.isNeighbor(u, v))
+				{
+					biGraph.addEdge(u, leftVertices+v);
+					biGraph.addEdge(leftVertices+v, u);
+				}
+			}
+		}
+		return biGraph;
 	}
 
 	/**

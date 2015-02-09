@@ -77,7 +77,7 @@ public class Graph{
 	 */
 	public int size()
 	{
-		return noOfVertices;
+		return adjacencyList.length;
 	}
 	/**
 	 * 

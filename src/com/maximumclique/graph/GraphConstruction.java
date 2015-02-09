@@ -5,6 +5,7 @@ package com.maximumclique.graph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -46,7 +47,7 @@ public class GraphConstruction {
 				break;
 			}
 		}
-		graph.printGraph();
+		//graph.printGraph();
 		return graph;
 	}
 	
@@ -58,17 +59,41 @@ public class GraphConstruction {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		Graph graph = GraphConstruction.constructGraph("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/C125.9.clq.txt");
-		graph.printGraph();
+		//graph.printGraph();
+		ArrayList<Integer>[] adjList = graph.getAdjacencyList();
+		GraphDNA.shuffle(adjList);
 		
-		HashSet<Integer> maximalClique = GraphUtil.findOneMaximalClique(118, graph);
+		HashSet<Integer> maximalCliqueK1 = GraphUtil.findOneMaximalClique(118, graph);
+		HashSet<Integer> maximalCliqueK2 = GraphUtil.findOneMaximalClique(79, graph);
+
 		
-		System.out.print("[");
-		for(int node : maximalClique)
+		System.out.print("[ ");
+		for(int node : maximalCliqueK1)
 		{
 			System.out.print(node+" ");
 		}
 		System.out.println("]");
+		
+		
+		System.out.print("[ ");
+		for(int node : maximalCliqueK2)
+		{
+			System.out.print(node+" ");
+		}
+		System.out.println("]");
+		
 
+		
+
+		System.out.println("GROWN MAXIMAL CLIQUE");
+		HashSet<Integer> grownMaximalClique = GraphUtil.growMaximalClique(maximalCliqueK1, graph);
+		
+		System.out.print("[ ");
+		for(int node : grownMaximalClique)
+		{
+			System.out.print(node+" ");
+		}
+		System.out.println("]");
 		
 	}
 
