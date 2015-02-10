@@ -15,8 +15,8 @@ import java.util.Scanner;
  */
 public class GraphConstruction {
 
-	public static int noOfVertices=0;
-	public static int noOfEdges=0;
+	private static int noOfVertices=0;
+	private static int noOfEdges=0;
 	
 	public static Graph constructGraph(String fileName) throws FileNotFoundException
 	{
@@ -62,7 +62,7 @@ public class GraphConstruction {
 		//graph.printGraph();
 
 		ArrayList<Integer>[] adjList = graph.getAdjacencyList();
-		GraphDNA.shuffle(adjList);
+		//GraphDNA.shuffle(adjList);
 
 		HashSet<Integer> maximalCliqueK1 = GraphUtil.findOneMaximalClique(118, graph);
 		HashSet<Integer> maximalCliqueK2 = GraphUtil.findOneMaximalClique(79, graph);

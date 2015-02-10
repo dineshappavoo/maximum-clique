@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Graph{
 
 	
-	public static ArrayList<Integer>[] adjacencyList=null;
-	public int noOfVertices;
+	private static ArrayList<Integer>[] adjacencyList=null;
+	private int noOfVertices;
 	
 	
 	public Graph(int noOfVertices)
