@@ -99,6 +99,18 @@ public class Graph{
 		return adjacencyList;
 	}
 	
+	/**
+	 * 
+	 */
+	public boolean removeVertices(int u)
+	{
+		if(adjacencyList[u]==null)
+			return false;
+		adjacencyList[u] = new ArrayList<Integer>();
+		return true;
+	}
+	
+	
 	public void printGraph()
 	{
 		ArrayList<Integer> edgeList;

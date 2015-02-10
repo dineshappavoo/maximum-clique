@@ -24,7 +24,7 @@ public class GraphUtil {
 	 * @param graph
 	 * @return potentialClique
 	 */
-	public static HashSet<Integer> findOneMaximalClique(int startNode, Graph graph	)
+	public HashSet<Integer> findOneMaximalClique(int startNode, Graph graph	)
 	{
 
 		HashSet<Integer> maximalClique = new HashSet<Integer>();
@@ -64,7 +64,7 @@ public class GraphUtil {
 	 * @param graph
 	 * @return
 	 */
-	public static HashSet<Integer> growMaximalClique(HashSet<Integer> currentMaximalClique, Graph graph)
+	public HashSet<Integer> growMaximalClique(HashSet<Integer> currentMaximalClique, Graph graph)
 	{
 
 		Queue<Integer> queue = new LinkedList<Integer>();
@@ -110,7 +110,7 @@ public class GraphUtil {
 	 * @param graph
 	 * @return
 	 */
-	public static boolean isAdjacentToCurrentMaximal(HashSet<Integer> currentMaximal, int node, Graph graph)
+	public boolean isAdjacentToCurrentMaximal(HashSet<Integer> currentMaximal, int node, Graph graph)
 	{
 		for(int u : currentMaximal)
 		{
@@ -127,28 +127,29 @@ public class GraphUtil {
 	 * @param maximalCliqueK1
 	 * @param maximalCliqueK2
 	 */
-	public static Graph findBipartiteComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph graph)
+	public Graph findBipartiteComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph OrigGraph)
 	{		
 		int clique1Size = maximalCliqueK1.size();
 		int clique2Size = maximalCliqueK2.size();
 		
 		int graphSize = clique1Size + clique2Size;
-		System.out.println("Original graph size 1 : "+graph.size());
+		System.out.println("Original graph size 1 : "+OrigGraph.size());
 
 		Graph bipartiteGraph = new Graph(graphSize);
-		System.out.println("Original graph size 2 : "+graph.size());
+		System.out.println("Original graph size 2 : "+OrigGraph.size());
 
 		int[] indexArray = new int[graphSize];
-		
+		Graph bipartiteGraph1 = new Graph(graphSize);
+
 		
 		int leftVertexIndex = 1;
 		int rightVertexIndex = leftVertexIndex + 1;
-		System.out.println("Original graph size 3 : "+graph.size());
+		System.out.println("Original graph size 3 : "+OrigGraph.size());
 		for(int u : maximalCliqueK1)
 		{
 			for(int v : maximalCliqueK2)
 			{
-				if(!graph.isNeighbor(u, v))
+				if(!OrigGraph.isNeighbor(u, v))
 				{
 					bipartiteGraph.addEdge(leftVertexIndex, rightVertexIndex);
 					bipartiteGraph.addEdge(rightVertexIndex, leftVertexIndex);
