@@ -4,7 +4,6 @@
 package com.maximumclique.graph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -128,27 +127,48 @@ public class GraphUtil {
 	 * @param maximalCliqueK1
 	 * @param maximalCliqueK2
 	 */
-	public Graph findBipartiteComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph graph)
-	{
-		int size = graph.size()-1;
-		Graph biGraph = new Graph(size*2);
+	public static Graph findBipartiteComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph graph)
+	{		
+		int clique1Size = maximalCliqueK1.size();
+		int clique2Size = maximalCliqueK2.size();
 		
-		int leftVertices = size;
+		int graphSize = clique1Size + clique2Size;
+		System.out.println("Original graph size : "+graph.size());
+
+		Graph bipartiteGraph = new Graph(graphSize);
 		
+		int[] indexArray = new int[graphSize];
+		
+		
+		int leftVertexIndex = 1;
+		int rightVertexIndex = leftVertexIndex + 1;
+		System.out.println("Original graph size : "+graph.size());
 		for(int u : maximalCliqueK1)
 		{
 			for(int v : maximalCliqueK2)
 			{
 				if(!graph.isNeighbor(u, v))
 				{
-					biGraph.addEdge(u, leftVertices+v);
-					biGraph.addEdge(leftVertices+v, u);
+					bipartiteGraph.addEdge(leftVertexIndex, rightVertexIndex);
+					bipartiteGraph.addEdge(rightVertexIndex, leftVertexIndex);
+					
+					indexArray[leftVertexIndex] = u;
+					indexArray[rightVertexIndex] = v;
+					leftVertexIndex++;
+					rightVertexIndex++;
 				}
 			}
 		}
-		return biGraph;
+		return bipartiteGraph;
 	}
 
+	public static HashSet<Integer> findVertexCoverComplement(Graph biGraph)
+	{
+		HashSet<Integer> biCliqueSet = new HashSet<Integer>();
+		
+		
+		return biCliqueSet;
+	}
 	/**
 	 * @param args
 	 */

@@ -60,13 +60,14 @@ public class GraphConstruction {
 
 		Graph graph = GraphConstruction.constructGraph("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/C125.9.clq.txt");
 		//graph.printGraph();
+
 		ArrayList<Integer>[] adjList = graph.getAdjacencyList();
 		GraphDNA.shuffle(adjList);
-		
+
 		HashSet<Integer> maximalCliqueK1 = GraphUtil.findOneMaximalClique(118, graph);
 		HashSet<Integer> maximalCliqueK2 = GraphUtil.findOneMaximalClique(79, graph);
 
-		
+
 		System.out.print("[ ");
 		for(int node : maximalCliqueK1)
 		{
@@ -83,7 +84,8 @@ public class GraphConstruction {
 		System.out.println("]");
 		
 
-		
+		Graph biGraph = GraphUtil.findBipartiteComplement(maximalCliqueK1, maximalCliqueK2, graph);
+		biGraph.printGraph();
 
 		System.out.println("GROWN MAXIMAL CLIQUE");
 		HashSet<Integer> grownMaximalClique = GraphUtil.growMaximalClique(maximalCliqueK1, graph);
