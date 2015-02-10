@@ -100,7 +100,9 @@ public class Graph{
 	}
 	
 	/**
-	 * 
+	 * Remove vertex from the graph
+	 * @param u
+	 * @return
 	 */
 	public boolean removeVertices(int u)
 	{
@@ -110,7 +112,34 @@ public class Graph{
 		return true;
 	}
 	
+	public ArrayList<Integer> removeVertexForOutboundLimit(int k, int currentrMaximalRoot)
+	{
+		int size = 0;
+		ArrayList<Integer> deletedIndex = new ArrayList<Integer>();
+		ArrayList<Integer> list;
+		for(int i=1;i<noOfVertices+1;i++)
+		{
+			list = adjacencyList[i];
+			size = list.size();
+			if(size <= k)
+			{
+				if(i!=currentrMaximalRoot)
+					deletedIndex.add(i);
+			}
+		}
+		
+		//Delete the vertex for all indexes
+		for(int index : deletedIndex)
+		{
+			adjacencyList[index] = new ArrayList<Integer>();
+		}
+		
+		return deletedIndex;
+	}
 	
+	/**
+	 * Print the graph
+	 */
 	public void printGraph()
 	{
 		ArrayList<Integer> edgeList;
