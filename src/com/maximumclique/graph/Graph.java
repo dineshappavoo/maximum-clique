@@ -112,18 +112,19 @@ public class Graph{
 		return true;
 	}
 	
-	public ArrayList<Integer> removeVertexForOutboundLimit(int k, int currentrMaximalRoot)
+	public ArrayList<Integer> removeVertexForOutboundLimit(ArrayList<Integer> currentrMaximal)
 	{
 		int size = 0;
 		ArrayList<Integer> deletedIndex = new ArrayList<Integer>();
+		int currentMaximalSize = currentrMaximal.size();
 		ArrayList<Integer> list;
 		for(int i=1;i<noOfVertices+1;i++)
 		{
 			list = adjacencyList[i];
 			size = list.size();
-			if(size <= k)
+			if(size <= currentMaximalSize)
 			{
-				if(i!=currentrMaximalRoot)
+				if(!currentrMaximal.contains(i))
 					deletedIndex.add(i);
 			}
 		}

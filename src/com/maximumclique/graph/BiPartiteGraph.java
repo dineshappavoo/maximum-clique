@@ -9,12 +9,12 @@ import java.util.ArrayList;
  * @author Dany
  *
  */
-public class MinVertexCoverGraph {
+public class BiPartiteGraph {
 
 	ArrayList<Integer> leftVertices;
 	ArrayList<Integer> rightVertices;
 	
-	public MinVertexCoverGraph(ArrayList<Integer> leftVertices,	ArrayList<Integer> rightVertices)
+	public BiPartiteGraph(ArrayList<Integer> leftVertices,	ArrayList<Integer> rightVertices)
 	{
 		this.leftVertices = leftVertices;
 		this.rightVertices = rightVertices;
