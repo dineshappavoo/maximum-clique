@@ -9,7 +9,7 @@ import java.util.HashSet;
  * @author Dany
  *
  */
-public class GraphTestUtil {
+public class GraphValidationUtil {
 
 	public static boolean isValidMaximalClique(Graph graph, HashSet<Integer> maximalClique)
 	{

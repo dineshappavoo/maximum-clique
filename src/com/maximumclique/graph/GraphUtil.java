@@ -135,7 +135,7 @@ public class GraphUtil {
 		int graphSize = clique1Size + clique2Size;
 		System.out.println("Original graph size 1 : "+graph.size());
 
-		final Graph bipartiteGraph = new Graph(graphSize);
+		Graph bipartiteGraph = new Graph(graphSize);
 		System.out.println("Original graph size 2 : "+graph.size());
 
 		int[] indexArray = new int[graphSize];
