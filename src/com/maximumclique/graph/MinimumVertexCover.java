@@ -234,6 +234,7 @@ public class MinimumVertexCover {
 	public int findMaxMatching(Graph graph)
 	{
 		int maxMatching=0;
+		this.biGraph = graph;
 		//constructGraph(fileName);
 		long inTime=System.currentTimeMillis();
 		maxMatching=doHopCraft_Karp();

@@ -145,19 +145,25 @@ public class GraphUtil {
 		int rightVertexIndex = clique1Size + 1;
 		for(int u : maximalCliqueK1)
 		{
+			//System.out.println("U Value : "+u);
 			for(int v : maximalCliqueK2)
 			{
-				if(!OrigGraph.isNeighbor(u, v))
+				//System.out.println("V Value : "+v);
+
+				if((!OrigGraph.isNeighbor(u, v)) && (u!=v))
 				{
+					System.out.println("No Edge U :"+u+"  V : "+v+"  Left "+leftVertexIndex+"  Right   "+rightVertexIndex);
 					bipartiteGraph.addEdge(leftVertexIndex, rightVertexIndex);
 					bipartiteGraph.addEdge(rightVertexIndex, leftVertexIndex);
 					
 					indexArray[leftVertexIndex] = u;
 					indexArray[rightVertexIndex] = v;
-					leftVertexIndex++;
 					rightVertexIndex++;
 				}
+
 			}
+			leftVertexIndex++;
+			rightVertexIndex = clique1Size +1;
 		}
 		
 		//Find the minimum vertex cover from the bipartite complement
