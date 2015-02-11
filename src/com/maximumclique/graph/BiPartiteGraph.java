@@ -3,7 +3,7 @@
  */
 package com.maximumclique.graph;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * @author Dany
@@ -11,10 +11,10 @@ import java.util.ArrayList;
  */
 public class BiPartiteGraph {
 
-	ArrayList<Integer> leftVertices;
-	ArrayList<Integer> rightVertices;
+	HashSet<Integer> leftVertices;
+	HashSet<Integer> rightVertices;
 	
-	public BiPartiteGraph(ArrayList<Integer> leftVertices,	ArrayList<Integer> rightVertices)
+	public BiPartiteGraph(HashSet<Integer> leftVertices,	HashSet<Integer> rightVertices)
 	{
 		this.leftVertices = leftVertices;
 		this.rightVertices = rightVertices;

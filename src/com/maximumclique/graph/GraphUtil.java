@@ -127,7 +127,7 @@ public class GraphUtil {
 	 * @param maximalCliqueK1
 	 * @param maximalCliqueK2
 	 */
-	public Graph findBipartiteComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph OrigGraph)
+	public BiCliqueGraph findBipartiteComplementAndVertexCoverComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph OrigGraph)
 	{		
 		int clique1Size = maximalCliqueK1.size();
 		int clique2Size = maximalCliqueK2.size();
@@ -136,13 +136,13 @@ public class GraphUtil {
 		System.out.println("Original graph size 1 : "+OrigGraph.size());
 
 		Graph bipartiteGraph = new Graph(graphSize);
-		System.out.println("Original graph size 2 : "+OrigGraph.size());
+		System.out.println("New graph size  : "+graphSize);
 
-		int[] indexArray = new int[graphSize];
+		int[] indexArray = new int[graphSize+1];
 
 		
 		int leftVertexIndex = 1;
-		int rightVertexIndex = leftVertexIndex + 1;
+		int rightVertexIndex = clique1Size + 1;
 		for(int u : maximalCliqueK1)
 		{
 			for(int v : maximalCliqueK2)
@@ -159,15 +159,55 @@ public class GraphUtil {
 				}
 			}
 		}
-		return bipartiteGraph;
+		
+		//Find the minimum vertex cover from the bipartite complement
+		MinimumVertexCover minVertexCover  = new MinimumVertexCover();
+		BiPartiteGraph vertexCover = minVertexCover.getMinimumVertexCover(bipartiteGraph, leftVertexIndex, rightVertexIndex);
+		
+		ArrayList<Integer> leftBiCliqueVertices = new ArrayList<Integer>();
+		ArrayList<Integer> rightBiCliqueVertices = new ArrayList<Integer>();
+		//Find vertex cover complement
+		for(int u : vertexCover.leftVertices)
+		{
+			for(int v : vertexCover.rightVertices)
+			{
+				if(!bipartiteGraph.isNeighbor(u, v))
+				{
+					leftBiCliqueVertices.add(indexArray[u]);
+					rightBiCliqueVertices.add(indexArray[v]);
+
+				}
+			}
+		}
+				
+		boolean isValidBiClique = GraphValidationUtil.isValidBiClique(bipartiteGraph, leftBiCliqueVertices, rightBiCliqueVertices);
+		System.out.println("The BiClique is  : "+isValidBiClique);
+		printBiGraph(bipartiteGraph, leftBiCliqueVertices, rightBiCliqueVertices);
+
+		return new BiCliqueGraph(leftBiCliqueVertices, rightBiCliqueVertices);
 	}
 
+	
 	public static HashSet<Integer> findVertexCoverComplement(Graph biGraph)
 	{
 		HashSet<Integer> biCliqueSet = new HashSet<Integer>();
 		
 		
 		return biCliqueSet;
+	}
+	
+	public void printBiGraph(Graph graph, ArrayList<Integer> left, ArrayList<Integer> right)
+	{
+		for(int u : left)
+		{
+			for(int v : right)
+			{
+				if(graph.isNeighbor(u, v))
+				{
+					System.out.println("u : "+u+"    v : "+v);
+				}
+			}
+		}
 	}
 	/**
 	 * @param args

@@ -90,10 +90,7 @@ public class MaximumBiClique {
 		System.out.println("]");
 		
 
-		//Find Bipartite Complement of the merged maximal cliques
-		Graph biGraph = graphUtil.findBipartiteComplement(maximalCliqueK1, maximalCliqueK2, graph);
-		biGraph.printGraph();
-
+		
 		//Grow the merged maximal clique further - TEST
 		System.out.println("GROWN MAXIMAL CLIQUE");
 		HashSet<Integer> grownMaximalClique = graphUtil.growMaximalClique(maximalCliqueK1, graph);
@@ -106,10 +103,11 @@ public class MaximumBiClique {
 		System.out.println("]");
 		
 		
-		//Find the minimum vertex cover from the bipartite complement
-		MinimumVertexCover minVertexCover  = new MinimumVertexCover();
+		//Find Bipartite Complement of the merged maximal cliques and vertex
+		BiCliqueGraph biClique = graphUtil.findBipartiteComplementAndVertexCoverComplement(maximalCliqueK1, maximalCliqueK2, graph);
 		
 		
+
 	}
 
 

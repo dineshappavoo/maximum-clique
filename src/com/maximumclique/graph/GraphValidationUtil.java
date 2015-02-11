@@ -3,6 +3,7 @@
  */
 package com.maximumclique.graph;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -29,7 +30,7 @@ public class GraphValidationUtil {
 		return true;
 	}
 	
-	public static boolean isValidBiClique(Graph graph, HashSet<Integer> leftVertices, HashSet<Integer> rightVertices)
+	public static boolean isValidBiClique(Graph graph, ArrayList<Integer> leftVertices, ArrayList<Integer> rightVertices)
 	{
 		for(int u : leftVertices)
 		{

@@ -45,8 +45,8 @@ public class MinimumVertexCover {
 	private final int NIL=0;
 	private final int INF=Integer.MAX_VALUE;
 
-	private Set<Integer> leftVertexCoverVertices = new HashSet<Integer>();
-	private Set<Integer> rightVertexCoverVertices = new HashSet<Integer>();
+	private HashSet<Integer> leftVertexCoverVertices = new HashSet<Integer>();
+	private HashSet<Integer> rightVertexCoverVertices = new HashSet<Integer>();
 
 	private ArrayList<Integer> leftFreeVertices = new ArrayList<Integer>();
 	private ArrayList<Integer> rightFreeVertices = new ArrayList<Integer>();	
@@ -55,15 +55,66 @@ public class MinimumVertexCover {
 
 		MinimumVertexCover minVertCover = new MinimumVertexCover();
 		//int result=minVertCover.findMaxMatching("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/matching_input_5.txt");
-		minVertCover.constructGraph("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/matching_input_5.txt");
-		int result=minVertCover.findMaxMatching(biGraph);
+		minVertCover.getVertexCoverTest();
+	}
+	
+	public void getVertexCoverTest() throws FileNotFoundException
+	{
+		Graph graph = constructGraph("/Users/Dany/Documents/FALL-2013-COURSES/Imp_Data_structures/workspace/MaximumClique/src/com/maximumclique/input/matching_input_5.txt");
+		getMinimumVertexCover(graph, leftVertices, rightVertices);
+	}
+	/**
+	 * Method the construct the graph from the input file
+	 * @param fileName
+	 * @throws FileNotFoundException
+	 */
+	public Graph constructGraph(String fileName) throws FileNotFoundException
+	{
+		File infile=new File(fileName);
+		int u,v;
 
+		Scanner scanner=new Scanner(infile);
+		leftVertices=scanner.nextInt();
+		rightVertices=scanner.nextInt();
+		
+		noOfEdges=scanner.nextInt();
+		biGraph=new Graph(leftVertices+rightVertices+1);
+		for(int i=0;i<noOfEdges;i++)
+		{
+			u=scanner.nextInt();
+			v=scanner.nextInt();
+			biGraph.addEdge(u,leftVertices+v);// To distinct the vertex ID's 'leftVertice+v'
+			biGraph.addEdge(leftVertices+v, u);
+		}
+		
+		//Shuffle the adjacency list
+		ArrayList<Integer>[] adjList = biGraph.getAdjacencyList();
+		
+		//Shuffle the vertices
+		//GraphDNA.shuffle(adjList);
+		
+		//Shuffle each adjacency list
+		for(ArrayList<Integer> list : adjList)
+		{
+			Collections.shuffle(list);
+		}
+		
+		return biGraph;
+	}
+
+
+	public BiPartiteGraph getMinimumVertexCover(Graph graph, int leftVertices, int rightVertices)
+	{
+		this.leftVertices = leftVertices;
+		this.rightVertices = rightVertices;
+		graph.printGraph();
+		int result=findMaxMatching(graph);
 		System.out.println("\nTotal matching : "+result);
-		minVertCover.identifyFreeVertices();
-		minVertCover.findMinimumVertexCover();
-
-		minVertCover.printDetailedGraphInformation();
-		//biGraph.printGraph();
+		identifyFreeVertices();
+		findMinimumVertexCover();
+		printDetailedGraphInformation();		
+		
+		return new BiPartiteGraph(leftVertexCoverVertices, rightVertexCoverVertices);
 	}
 
 	public void printDetailedGraphInformation()
@@ -114,7 +165,7 @@ public class MinimumVertexCover {
 	 * Method to find the minimum vertex cover from the maximum matching results
 	 * @throws FileNotFoundException
 	 */
-	public void findMinimumVertexCover() throws FileNotFoundException
+	public void findMinimumVertexCover()
 	{
 		for(int i=1;i<=leftVertices;i++)
 		{
@@ -154,6 +205,7 @@ public class MinimumVertexCover {
 
 	/**
 	 * Method to find the free vertices after the bipartite matching
+	 * 
 	 */
 	public void identifyFreeVertices()
 	{
@@ -179,7 +231,7 @@ public class MinimumVertexCover {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public int findMaxMatching(Graph graph) throws FileNotFoundException
+	public int findMaxMatching(Graph graph)
 	{
 		int maxMatching=0;
 		//constructGraph(fileName);
@@ -191,57 +243,9 @@ public class MinimumVertexCover {
 	}
 
 	/**
-	 * Method the construct the graph from the input file
-	 * @param fileName
-	 * @throws FileNotFoundException
+	 * Depth First Search 
+	 * @return
 	 */
-	public void constructGraph(String fileName) throws FileNotFoundException
-	{
-		File infile=new File(fileName);
-		int u,v;
-
-		Scanner scanner=new Scanner(infile);
-		leftVertices=scanner.nextInt();
-		rightVertices=scanner.nextInt();
-		//leftVertices+=1;
-		//rightVertices+=1;
-		noOfEdges=scanner.nextInt();
-		biGraph=new Graph(leftVertices+rightVertices+1);
-		for(int i=0;i<noOfEdges;i++)
-		{
-			u=scanner.nextInt();
-			v=scanner.nextInt();
-			//scanner.nextInt();
-			biGraph.addEdge(u,leftVertices+v);// To distinct the vertex ID's 'leftVertice+v'
-			biGraph.addEdge(leftVertices+v, u);
-		}
-		
-		//Shuffle the adjacency list
-		ArrayList<Integer>[] adjList = biGraph.getAdjacencyList();
-		
-		//Shuffle the vertices
-		GraphDNA.shuffle(adjList);
-		
-		//Shuffle each adjacency list
-		for(ArrayList<Integer> list : adjList)
-		{
-			Collections.shuffle(list);
-		}
-	}
-	
-			
-	public ArrayList<Integer>[] RandomizeArray(ArrayList<Integer>[] adjList){
-		Random rgen = new Random();  // Random number generator 
-		for (int i=0; i<adjList.length; i++) {
-		    int randomPosition = rgen.nextInt(adjList.length);
-		    ArrayList<Integer> temp = adjList[i];
-		    adjList[i] = adjList[randomPosition];
-		    adjList[randomPosition] = temp;
-		}
- 
-		return adjList;
-	}
-
 	public boolean doBFS()
 	{
 
