@@ -139,12 +139,10 @@ public class GraphUtil {
 		System.out.println("Original graph size 2 : "+OrigGraph.size());
 
 		int[] indexArray = new int[graphSize];
-		Graph bipartiteGraph1 = new Graph(graphSize);
 
 		
 		int leftVertexIndex = 1;
 		int rightVertexIndex = leftVertexIndex + 1;
-		System.out.println("Original graph size 3 : "+OrigGraph.size());
 		for(int u : maximalCliqueK1)
 		{
 			for(int v : maximalCliqueK2)

@@ -36,20 +36,20 @@ public class MinimumVertexCover {
 	/**
 	 * @param args
 	 */
-	public static int noOfVertices=0;
-	public static int noOfEdges=0;
-	public static Graph biGraph=null;
-	public static int leftVertices=0, rightVertices=0;
-	public static int[] Pair;
-	public static int[] Dist;
-	public final int NIL=0;
-	public final int INF=Integer.MAX_VALUE;
+	private int noOfVertices=0;
+	private int noOfEdges=0;
+	private Graph biGraph=null;
+	private int leftVertices=0, rightVertices=0;
+	private int[] Pair;
+	private int[] Dist;
+	private final int NIL=0;
+	private final int INF=Integer.MAX_VALUE;
 
-	public static Set<Integer> leftVertexCoverVertices = new HashSet<Integer>();
-	public static Set<Integer> rightVertexCoverVertices = new HashSet<Integer>();
+	private Set<Integer> leftVertexCoverVertices = new HashSet<Integer>();
+	private Set<Integer> rightVertexCoverVertices = new HashSet<Integer>();
 
-	public static ArrayList<Integer> leftFreeVertices = new ArrayList<Integer>();
-	public static ArrayList<Integer> rightFreeVertices = new ArrayList<Integer>();	
+	private ArrayList<Integer> leftFreeVertices = new ArrayList<Integer>();
+	private ArrayList<Integer> rightFreeVertices = new ArrayList<Integer>();	
 
 	public static void main(String[] args) throws FileNotFoundException {
 
@@ -230,7 +230,7 @@ public class MinimumVertexCover {
 	}
 	
 			
-	public static ArrayList<Integer>[] RandomizeArray(ArrayList<Integer>[] adjList){
+	public ArrayList<Integer>[] RandomizeArray(ArrayList<Integer>[] adjList){
 		Random rgen = new Random();  // Random number generator 
 		for (int i=0; i<adjList.length; i++) {
 		    int randomPosition = rgen.nextInt(adjList.length);
