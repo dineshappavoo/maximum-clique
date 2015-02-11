@@ -129,8 +129,14 @@ public class GraphUtil {
 	 */
 	public BiCliqueGraph findBipartiteComplementAndVertexCoverComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph OrigGraph)
 	{		
+		//Take bipartite complement from two maximal cliques and arrange the graph with minimal memory
 		int clique1Size = maximalCliqueK1.size();
 		int clique2Size = maximalCliqueK2.size();
+		
+		System.out.println("Clique 1 : "+clique1Size);
+		System.out.println("Clique 2 : "+clique2Size);
+
+		
 		
 		int graphSize = clique1Size + clique2Size;
 		System.out.println("Original graph size 1 : "+OrigGraph.size());
@@ -186,8 +192,12 @@ public class GraphUtil {
 			}
 		}
 				
+		System.out.println(vertexCover.leftVertices.size());
+		System.out.println(vertexCover.rightVertices.size());
+		//Validating biclique
 		boolean isValidBiClique = GraphValidationUtil.isValidBiClique(bipartiteGraph, leftBiCliqueVertices, rightBiCliqueVertices);
 		System.out.println("The BiClique is  : "+isValidBiClique);
+		
 		printBiGraph(bipartiteGraph, leftBiCliqueVertices, rightBiCliqueVertices);
 
 		return new BiCliqueGraph(leftBiCliqueVertices, rightBiCliqueVertices);
