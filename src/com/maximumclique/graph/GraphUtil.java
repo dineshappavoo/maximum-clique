@@ -144,6 +144,10 @@ public class GraphUtil {
 		Graph bipartiteGraph = new Graph(graphSize);
 		System.out.println("New graph size  : "+graphSize);
 
+		CustomizedArrayList leftIndexArray = new CustomizedArrayList(clique1Size+1);
+		CustomizedArrayList rightIndexArray = new CustomizedArrayList(clique2Size+1);
+		
+		ArrayList<Integer> indexArrayList = new ArrayList<Integer>(); 
 		int[] indexArray = new int[graphSize+1];
 
 		
@@ -151,10 +155,10 @@ public class GraphUtil {
 		int rightVertexIndex = clique1Size + 1;
 		for(int u : maximalCliqueK1)
 		{
-			//System.out.println("U Value : "+u);
+			System.out.println("U Value : "+u);
 			for(int v : maximalCliqueK2)
 			{
-				//System.out.println("V Value : "+v);
+				System.out.println("V Value : "+v);
 
 				if((!OrigGraph.isNeighbor(u, v)) && (u!=v))
 				{
@@ -162,14 +166,20 @@ public class GraphUtil {
 					bipartiteGraph.addEdge(leftVertexIndex, rightVertexIndex);
 					bipartiteGraph.addEdge(rightVertexIndex, leftVertexIndex);
 					
-					indexArray[leftVertexIndex] = u;
-					indexArray[rightVertexIndex] = v;
-					rightVertexIndex++;
+					//Left index array doesnt have to be verified with contains method, because the u is iterated in the outer for loop. So it will be iterated only once
+					leftIndexArray.add(leftVertexIndex, u);
+					if(!rightIndexArray.contains(v))
+					{
+						rightIndexArray.add(rightVertexIndex, v);
+						rightVertexIndex++;
+					}
+					//indexArray[leftVertexIndex] = u;
+					//indexArray[rightVertexIndex] = v;
 				}
 
 			}
 			leftVertexIndex++;
-			rightVertexIndex = clique1Size +1;
+			//rightVertexIndex = clique1Size +1;
 		}
 		
 		//Find the minimum vertex cover from the bipartite complement
@@ -185,8 +195,8 @@ public class GraphUtil {
 			{
 				if(!bipartiteGraph.isNeighbor(u, v))
 				{
-					leftBiCliqueVertices.add(indexArray[u]);
-					rightBiCliqueVertices.add(indexArray[v]);
+					leftBiCliqueVertices.add(leftIndexArray.get(u));
+					rightBiCliqueVertices.add(rightIndexArray.get(v));
 
 				}
 			}

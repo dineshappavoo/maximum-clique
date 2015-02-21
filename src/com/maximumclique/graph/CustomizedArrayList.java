@@ -55,6 +55,16 @@ public class CustomizedArrayList {
 	}
 	
 	/**
+	 * Array method to get the element from a specific index
+	 * @param index
+	 * @return
+	 */
+	public int get(int index)
+	{
+		return array[index];
+	}
+	
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
