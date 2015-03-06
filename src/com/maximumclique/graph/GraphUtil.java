@@ -4,6 +4,7 @@
 package com.maximumclique.graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -54,10 +55,10 @@ public class GraphUtil {
 				}
 			}
 		}
-		
+
 		return maximalClique;
 	}
-	
+
 	/**
 	 * Method to grow current maximal clique further if possible
 	 * @param currentMaximalClique
@@ -71,12 +72,12 @@ public class GraphUtil {
 
 		int graphSize = graph.size();
 		visited = new boolean[graphSize];
-		
+
 		for(int node : currentMaximalClique)
 		{
 			queue.add(node);
 			visited[node] = true;
-			
+
 		}
 
 		while(!queue.isEmpty())
@@ -96,10 +97,10 @@ public class GraphUtil {
 				}
 			}
 		}
-		
+
 		return currentMaximalClique;
-	
-		
+
+
 	}
 
 	/**
@@ -121,7 +122,7 @@ public class GraphUtil {
 		}
 		return true;			
 	}
-	
+
 	/**
 	 * 
 	 * @param maximalCliqueK1
@@ -132,12 +133,14 @@ public class GraphUtil {
 		//Take bipartite complement from two maximal cliques and arrange the graph with minimal memory
 		int clique1Size = maximalCliqueK1.size();
 		int clique2Size = maximalCliqueK2.size();
-		
+
 		System.out.println("Clique 1 : "+clique1Size);
 		System.out.println("Clique 2 : "+clique2Size);
 
+		//Remove the common nodes from maximal cliques
+		ArrayList<Integer> commonNode = findCommonNodesFromMaximalCliques(new ArrayList<Integer>(maximalCliqueK1), new ArrayList<Integer>(maximalCliqueK2));
 		
-		
+
 		int graphSize = clique1Size + clique2Size;
 		System.out.println("Original graph size 1 : "+OrigGraph.size());
 
@@ -146,11 +149,11 @@ public class GraphUtil {
 
 		CustomizedArrayList leftIndexArray = new CustomizedArrayList(clique1Size+1);
 		CustomizedArrayList rightIndexArray = new CustomizedArrayList(clique2Size+1);
-		
+
 		ArrayList<Integer> indexArrayList = new ArrayList<Integer>(); 
 		int[] indexArray = new int[graphSize+1];
 
-		
+
 		int leftVertexIndex = 1;
 		int rightVertexIndex = clique1Size + 1;
 		for(int u : maximalCliqueK1)
@@ -165,7 +168,7 @@ public class GraphUtil {
 					System.out.println("No Edge U :"+u+"  V : "+v+"  Left "+leftVertexIndex+"  Right   "+rightVertexIndex);
 					bipartiteGraph.addEdge(leftVertexIndex, rightVertexIndex);
 					bipartiteGraph.addEdge(rightVertexIndex, leftVertexIndex);
-					
+
 					//Left index array doesnt have to be verified with contains method, because the u is iterated in the outer for loop. So it will be iterated only once
 					leftIndexArray.add(leftVertexIndex, u);
 					if(!rightIndexArray.contains(v))
@@ -181,11 +184,11 @@ public class GraphUtil {
 			leftVertexIndex++;
 			//rightVertexIndex = clique1Size +1;
 		}
-		
+
 		//Find the minimum vertex cover from the bipartite complement
 		MinimumVertexCover minVertexCover  = new MinimumVertexCover();
 		BiPartiteGraph vertexCover = minVertexCover.getMinimumVertexCover(bipartiteGraph, leftVertexIndex, rightVertexIndex);
-		
+
 		ArrayList<Integer> leftBiCliqueVertices = new ArrayList<Integer>();
 		ArrayList<Integer> rightBiCliqueVertices = new ArrayList<Integer>();
 		//Find vertex cover complement
@@ -201,27 +204,66 @@ public class GraphUtil {
 				}
 			}
 		}
-				
+
 		System.out.println(vertexCover.leftVertices.size());
 		System.out.println(vertexCover.rightVertices.size());
 		//Validating biclique
 		boolean isValidBiClique = GraphValidationUtil.isValidBiClique(bipartiteGraph, leftBiCliqueVertices, rightBiCliqueVertices);
 		System.out.println("The BiClique is  : "+isValidBiClique);
-		
+
 		printBiGraph(bipartiteGraph, leftBiCliqueVertices, rightBiCliqueVertices);
 
 		return new BiCliqueGraph(leftBiCliqueVertices, rightBiCliqueVertices);
 	}
 
-	
+	/**
+	 * Method to remove the common elements from two maximal cliques and add the same to the common nodes array list
+	 * @param maximalClique1
+	 * @param maximalClique2
+	 * @return
+	 */
+	public static ArrayList<Integer> findCommonNodesFromMaximalCliques(ArrayList<Integer> maximalClique1, ArrayList<Integer> maximalClique2)
+	{
+		ArrayList<Integer> commonNodes = new ArrayList<Integer>();
+		int length1 = maximalClique1.size();
+		int length2 = maximalClique2.size();
+
+		System.out.println("Length : "+length1+"  "+length2);
+		Collections.sort(maximalClique1);
+		Collections.sort(maximalClique2);
+		int i=0, j=0;
+		System.out.println(" Max Clique "+maximalClique2.get(14));
+		while(i<length1 && j<length2)
+		{
+			System.out.println("i j "+i+" "+j);
+			if(maximalClique1.get(i) < maximalClique2.get(j))
+			{
+				i++;
+			}else if (maximalClique1.get(i)>maximalClique2.get(j))
+			{
+				j++;
+			}else
+			{
+				commonNodes.add(maximalClique1.get(i));
+				maximalClique1.remove(i);
+				maximalClique2.remove(i);
+				i++;
+				j++;
+			}
+		}
+
+		return commonNodes;
+	}
+
+
 	public static HashSet<Integer> findVertexCoverComplement(Graph biGraph)
 	{
 		HashSet<Integer> biCliqueSet = new HashSet<Integer>();
-		
-		
+
+
 		return biCliqueSet;
 	}
-	
+
 	public void printBiGraph(Graph graph, ArrayList<Integer> left, ArrayList<Integer> right)
 	{
 		for(int u : left)

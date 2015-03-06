@@ -12,6 +12,12 @@ import java.util.HashSet;
  */
 public class GraphValidationUtil {
 
+	/**
+	 * Util to verify whether the given clique is a valid maximal clique
+	 * @param graph
+	 * @param maximalClique
+	 * @return
+	 */
 	public static boolean isValidMaximalClique(Graph graph, HashSet<Integer> maximalClique)
 	{
 		for(int u : maximalClique)
@@ -30,6 +36,13 @@ public class GraphValidationUtil {
 		return true;
 	}
 	
+	/**
+	 * Util to verify whether a given biclique is valid
+	 * @param graph
+	 * @param leftVertices
+	 * @param rightVertices
+	 * @return
+	 */
 	public static boolean isValidBiClique(Graph graph, ArrayList<Integer> leftVertices, ArrayList<Integer> rightVertices)
 	{
 		for(int u : leftVertices)
@@ -43,6 +56,12 @@ public class GraphValidationUtil {
 			}
 		}
 		return true;
+	}
+	
+	
+	public static boolean isValidVertexCover()
+	{
+		return false;
 	}
 	
 	/**

@@ -259,13 +259,23 @@ public class MinimumVertexCover {
 		}
 		
 		//Matching elements from any one side
+		boolean nodeExists=false;
 		for(int i=1;i<=leftVertices;i++)
 		{
 			if(Pair[i]!=0)
 			{
 				if(!leftVertexCoverVertices.contains(i))
 				{
-					leftVertexCoverVertices.add(i);
+					ArrayList<Integer> adjList = biGraph.getOutEdges(i);
+					for(int n : adjList)
+					{
+						if(rightVertexCoverVertices.contains(n))
+							nodeExists=true;
+							
+					}
+					if(!nodeExists)
+						leftVertexCoverVertices.add(i);
+					nodeExists = false;
 				}
 			}
 		}
