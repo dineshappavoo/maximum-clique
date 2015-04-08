@@ -266,11 +266,16 @@ public class MinimumVertexCover {
 			{
 				if(!leftVertexCoverVertices.contains(i))
 				{
+					System.out.println("Matching vertices : "+i);
 					ArrayList<Integer> adjList = biGraph.getOutEdges(i);
 					for(int n : adjList)
 					{
 						if(rightVertexCoverVertices.contains(n))
+						{
+							System.out.println("Matching vertices left : "+i+"	right :"+n);
+
 							nodeExists=true;
+						}
 							
 					}
 					if(!nodeExists)
