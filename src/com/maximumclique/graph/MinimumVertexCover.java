@@ -36,7 +36,9 @@ import java.util.Set;
  *                   - mark the first of these vertices which connects to u.
  *          - include all of the marked vertices in the vertex cover  
  *          - do the same for the right side.
- *     - Vertices which are not connected to the free vertices (From any one side)  
+ *     - Vertices which are not connected to the free vertices but participating in the matching and not connected to any marked vertices(From left side) 
+ *     - Vertices which are not connected to the free vertices but participating in the matching and not connected to any marked vertices(From right side)  
+
  */
 public class MinimumVertexCover {
 
@@ -258,7 +260,7 @@ public class MinimumVertexCover {
 			}
 		}
 		
-		//Matching elements from any one side
+		//Matching elements from left side
 		boolean nodeExists=false;
 		for(int i=1;i<=leftVertices;i++)
 		{
@@ -266,7 +268,7 @@ public class MinimumVertexCover {
 			{
 				if(!leftVertexCoverVertices.contains(i))
 				{
-					System.out.println("Matching vertices : "+i);
+					System.out.println("Matching vertices [Left]: "+i);
 					ArrayList<Integer> adjList = biGraph.getOutEdges(i);
 					for(int n : adjList)
 					{
@@ -280,6 +282,37 @@ public class MinimumVertexCover {
 					}
 					if(!nodeExists)
 						leftVertexCoverVertices.add(i);
+					nodeExists = false;
+				}
+			}
+		}
+		
+		//Matching elements from right side
+		nodeExists=false;
+		for(int i=leftVertices+1;i<=(leftVertices+rightVertices);i++)
+		{
+			if(Pair[i]!=0)
+			{
+				if(!rightVertexCoverVertices.contains(i))
+				{
+					System.out.println("Matching vertices [Right]: "+i);
+					ArrayList<Integer> adjList = biGraph.getOutEdges(i);
+					for(int n : adjList)
+					{
+						System.out.println("Right "+i+" Left Nodes : "+n);
+						if(leftVertexCoverVertices.contains(n))
+						{
+							System.out.println("Matching vertices right : "+i+"	left :"+n);
+
+							nodeExists=true;
+						}
+							
+					}
+					if(!nodeExists)
+					{
+						System.out.println("Gonna add "+i);
+						rightVertexCoverVertices.add(i);
+					}
 					nodeExists = false;
 				}
 			}

@@ -20,6 +20,28 @@ public class GraphValidationUtil {
 	 */
 	public static boolean isValidMaximalClique(Graph graph, HashSet<Integer> maximalClique)
 	{
+		GraphUtil graphUtil =  new GraphUtil();
+		HashSet<Integer> grownMaximalClique = graphUtil.growMaximalClique(maximalClique, graph);
+		
+		if(maximalClique.size() != grownMaximalClique.size())
+			return false;
+		for(int n : maximalClique)
+		{
+			if(!grownMaximalClique.contains(n))
+				return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Util to verify whether the given clique is a valid clique
+	 * @param graph
+	 * @param maximalClique
+	 * @return
+	 */
+	public static boolean isValidClique(Graph graph, HashSet<Integer> maximalClique)
+	{
 		for(int u : maximalClique)
 		{
 			for(int v : maximalClique)

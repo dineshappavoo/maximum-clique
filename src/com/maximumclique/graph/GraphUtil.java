@@ -127,6 +127,13 @@ public class GraphUtil {
 	 * 
 	 * @param maximalCliqueK1
 	 * @param maximalCliqueK2
+	 * 
+	 * ALGORITHM : 
+	 *  1. Take the new mapping of graph elements
+	 *  2. Compare the array values to take the bipartite complement between two maximal cliques.
+	 * 
+	 * 
+	 * 
 	 */
 	public BiCliqueGraph findBipartiteComplementAndVertexCoverComplement(HashSet<Integer> maximalCliqueK1, HashSet<Integer> maximalCliqueK2, Graph OrigGraph)
 	{		
